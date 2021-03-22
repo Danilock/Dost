@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.StateMachine;
 
-public class PlayerIdleState : State<Player>
+public class PlayerMovingState : State<Player>
 {
     public override void EnterState(Player entity)
+    {
+        
+    }
+
+    public override void ExitState(Player entity)
     {
         
     }
@@ -22,17 +27,8 @@ public class PlayerIdleState : State<Player>
             entity.CharacterController.Jump();
             entity.StateMachine.SetState(entity.JumpState);
         }
-        else if(!entity.CharacterController.IsTotallyGrounded()){
-            entity.StateMachine.SetState(entity.JumpState);
+        else if(entity.InputHandler.Move.magnitude < .1f){
+            entity.StateMachine.SetState(entity.IdleState);
         }
-        else if(entity.InputHandler.Move.magnitude > .1f)
-        {
-            entity.StateMachine.SetState(entity.MovingState);
-        }
-    }
-
-    public override void ExitState(Player entity)
-    {
-        
     }
 }

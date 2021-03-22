@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInput _inputActions;
+    public PlayerInput InputActions { get => _inputActions; }
 
     public Vector2 Move { get; private set; }
 
@@ -28,4 +29,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     [ContextMenu("Activate Jump")]
     public void ActivateJump() => _inputActions.Player.Jump.Enable();
+
+    public bool JumpTriggered(){
+        return _inputActions.Player.Jump.triggered;
+    }
+
+    public bool MoveTriggered(){
+        return _inputActions.Player.Move.triggered;
+    }
 }
