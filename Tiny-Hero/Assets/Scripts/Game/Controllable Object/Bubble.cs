@@ -8,6 +8,10 @@ public class Bubble : Controllable
     [Header("Bubble Attributes")]
     [SerializeField] private float _force;
     [SerializeField] private ForceMode2D _forceMode;
+
+    [Header("Desactivation")]
+    [SerializeField] private bool _desactivateBySeconds = false;
+    [SerializeField] private float _seconds;
     private Rigidbody2D _rgb;
 
     private Collider2D _collider;
@@ -48,7 +52,7 @@ public class Bubble : Controllable
             CanBePicked = false;
             
             StartCoroutine(MoveBubble());
-
+            
         }
     }
 
@@ -68,11 +72,21 @@ public class Bubble : Controllable
 
         //Removing the player as child of the bubble
         UnattachPlayer(false);
+
+        StopCoroutine(DesactivateBubbleBySeconds());
     }
 
     private IEnumerator MoveBubble(){
         yield return new WaitForSeconds(1f);
         _collider.isTrigger = false;
         IsBeingUsed = true;
+
+        if(_desactivateBySeconds)
+            StartCoroutine(DesactivateBubbleBySeconds());
+    }
+
+    private IEnumerator DesactivateBubbleBySeconds(){
+        yield return new WaitForSeconds(_seconds);
+        DesactivateBubble();
     }
 }
