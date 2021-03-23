@@ -9,6 +9,8 @@ namespace Game.StateMachine{
 
         public virtual void TickState(T entity) { }
 
+        public virtual void FixedUpdateTick(T entity) { }
+
         public virtual void ExitState(T entity) { }
     }
 }

@@ -165,6 +165,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	#region  Public Methods
 	public void Jump(){
 		m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0f);
 		m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
@@ -180,6 +181,20 @@ public class CharacterController2D : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+	public bool IsMoving(){
+		return 
+		Mathf.Abs(m_Velocity.x) > .1f || 
+		Mathf.Abs(m_Velocity.y) > .1f;
+	}
+
+	///<Summary>
+	///Totally grounded means the player is in the floor and with zero velocity in y axis
+	///</Summary> 
+	public bool IsTotallyGrounded(){
+		return m_Grounded && Mathf.Abs(m_Rigidbody2D.velocity.y) < .1f;
+	}
+	#endregion
 
 	private void OnDrawGizmos()
 	{
