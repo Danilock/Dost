@@ -34,7 +34,6 @@ public class PlayerJumpState : State<Player>
     {
         if(entity.CharacterController.IsTotallyGrounded())
         {
-            Debug.Log("grounded!");
             entity.StateMachine.SetState(entity.IdleState);
         }
     }
