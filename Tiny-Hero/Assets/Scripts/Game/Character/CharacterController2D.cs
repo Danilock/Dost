@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class CharacterController2D : MonoBehaviour
 {
@@ -57,9 +58,16 @@ public class CharacterController2D : MonoBehaviour
 
 	public Collider2D[] Colliders { get; private set; }
 
+	private Vector3 m_lastScale;
+
+	[Header("Wall Check")]
+	[SerializeField] private LayerMask m_wallLayer;
+	[SerializeField] private Vector3 m_wallCheckSize, m_wallCheckOffset;
+
 	private void Awake()
 	{
 		Rigidbody = GetComponent<Rigidbody2D>();
+		m_lastScale = transform.localScale;
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
@@ -95,6 +103,11 @@ public class CharacterController2D : MonoBehaviour
 	{
 		if (!_canMove)
 			return;
+
+		//if(move == transform.localScale.x && CollidedWithWall()){
+			//Debug.Log("Wall");
+			//return;
+		//}
 
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
@@ -165,6 +178,16 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	private bool CollidedWithWall(){
+		Collider2D[] wallInFront = Physics2D.OverlapBoxAll(
+			WallCheckCenter(),
+			m_wallCheckSize,
+			m_wallLayer
+		);
+
+		return wallInFront.Length > 0;
+	}
+
 	#region  Public Methods
 	public void Jump(){
 		Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, 0f);
@@ -177,9 +200,12 @@ public class CharacterController2D : MonoBehaviour
 		m_FacingRight = !m_FacingRight;
 
 		// Multiply the player's x local scale by -1.
-		Vector3 theScale = transform.localScale;
+		Vector3 theScale = m_lastScale;
 		theScale.x *= -1;
-		transform.localScale = theScale;
+
+		m_lastScale = theScale;
+
+		transform.DOScale(theScale, .2f);
 	}
 
 	public bool IsMoving(){
@@ -202,5 +228,14 @@ public class CharacterController2D : MonoBehaviour
 			return;
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
+
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireCube(WallCheckCenter(), m_wallCheckSize);
+	}
+
+	private Vector3 WallCheckCenter(){
+		Vector3 center = transform.position + m_wallCheckOffset * transform.localScale.x;
+
+		return center;
 	}
 }
