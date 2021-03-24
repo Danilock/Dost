@@ -8,6 +8,8 @@ public class Bubble : Controllable
     [Header("Bubble Attributes")]
     [SerializeField] private float _force;
     [SerializeField] private ForceMode2D _forceMode;
+    [Header("Activation")]
+    [SerializeField] private float _timeForActivation = 1f;
 
     [Header("Desactivation")]
     [SerializeField] private bool _desactivateBySeconds = false;
@@ -40,19 +42,15 @@ public class Bubble : Controllable
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        Bubble _otherBubble = other.gameObject.GetComponent<Bubble>();
 
         if(other.gameObject.CompareTag("Player")){
-            if(Player == null || !CanBePicked)
-                return;
-            
-            AttachPlayer(true);
+            ActivateBubble();
+        }
+        else if(other.gameObject.CompareTag("Bubble") && _otherBubble.CanBePicked){
+            DesactivateBubble();
 
-            SwitchToControllableInput();
-
-            CanBePicked = false;
-            
-            StartCoroutine(MoveBubble());
-            
+            _otherBubble.ActivateBubble();
         }
     }
 
@@ -60,33 +58,42 @@ public class Bubble : Controllable
         DesactivateBubble();
     }
 
+    public void ActivateBubble(){
+        if(!CanBePicked)
+            return;
+
+        if(Player == null)
+            return;
+            
+        AttachPlayer(true);
+
+        SwitchToControllableInput();
+
+        CanBePicked = false;
+            
+        StartCoroutine(MoveBubble());
+    }
+
+    //Desactivate the bubble, making the object pickeable again.
     private void DesactivateBubble(){
         IsBeingUsed = false;
         _collider.isTrigger = true;
 
-        //Returning the bubble to it's initial position
-        StartCoroutine(ReturnToInitialPosition(2f));
-
-        //Switching to player's main input
-        SwitchToPlayerInput();
+        _rgb.velocity = Vector2.zero;
 
         //Removing the player as child of the bubble
         UnattachPlayer(false);
 
-        StopCoroutine(DesactivateBubbleBySeconds());
+        //Switching to player's main input
+        SwitchToPlayerInput();
+
+        //Returning the bubble to it's initial position
+        StartCoroutine(ReturnToInitialPosition(.3f));
     }
 
     private IEnumerator MoveBubble(){
-        yield return new WaitForSeconds(1f);
         _collider.isTrigger = false;
+        yield return new WaitForSeconds(_timeForActivation);
         IsBeingUsed = true;
-
-        if(_desactivateBySeconds)
-            StartCoroutine(DesactivateBubbleBySeconds());
-    }
-
-    private IEnumerator DesactivateBubbleBySeconds(){
-        yield return new WaitForSeconds(_seconds);
-        DesactivateBubble();
     }
 }

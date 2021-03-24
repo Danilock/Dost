@@ -37,4 +37,10 @@ public class PlayerInputHandler : MonoBehaviour
     public bool MoveTriggered(){
         return _inputActions.Player.Move.triggered;
     }
+
+    public bool DashTriggered(){
+        return _inputActions.Player.Dash.triggered;
+    }
+
+    public void SetMove(Vector2 newMoveValue) => Move = newMoveValue;
 }

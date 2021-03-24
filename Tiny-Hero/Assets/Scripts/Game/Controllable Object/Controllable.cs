@@ -38,13 +38,12 @@ public class Controllable : MonoBehaviour
 
     protected IEnumerator ReturnToInitialPosition(float seconds){
         CanBePicked = false;
-        transform.DOMove(InitialPosition, seconds);
-        yield return new WaitForSeconds(seconds);
+        yield return transform.DOMove(InitialPosition, seconds).IsComplete();
         CanBePicked = true;
     }
 
     protected void AttachPlayer(bool playerIsKinematic){
-        Player.transform.SetParent(gameObject.transform);
+        Player.transform.SetParent(this.gameObject.transform);
         Player.transform.localPosition = Vector3.zero;
 
         if(MakePlayerNPC)
