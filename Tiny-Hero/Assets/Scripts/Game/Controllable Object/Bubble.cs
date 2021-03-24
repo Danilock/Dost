@@ -76,6 +76,9 @@ public class Bubble : Controllable
 
     //Desactivate the bubble, making the object pickeable again.
     private void DesactivateBubble(){
+        if(!IsBeingUsed)
+            return;
+
         IsBeingUsed = false;
         _collider.isTrigger = true;
 
@@ -95,5 +98,8 @@ public class Bubble : Controllable
         _collider.isTrigger = false;
         yield return new WaitForSeconds(_timeForActivation);
         IsBeingUsed = true;
+
+        yield return new WaitForSeconds(_seconds);
+        DesactivateBubble();
     }
 }
