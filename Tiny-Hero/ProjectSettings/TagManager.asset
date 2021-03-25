@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bubble
+  - Trap
+  - Room Changer
   layers:
   - Default
   - TransparentFX
@@ -15,10 +17,10 @@ TagManager:
   - Player
   - Wall
   - Pickeable
-  - 
-  - 
-  - 
-  - 
+  - Trap
+  - Room Changer
+  - Bubble Destroyer
+  - Bubble
   - 
   - 
   - 
@@ -41,6 +43,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Decorations
+    uniqueID: 2384750625
+    locked: 0
+  - name: Environment
+    uniqueID: 2729798785
     locked: 0
   - name: Characters
     uniqueID: 1221484713

@@ -23,6 +23,13 @@ namespace Movement{
         private void SelectNextWaypoint(){
             _currentWaypointIndex = (_currentWaypointIndex + 1) % _wayPoints.Count;
             _currentWaypoint = _wayPoints[_currentWaypointIndex];
+            
+            StartCoroutine(MoveObjectToPosition());
+        }
+
+        private IEnumerator MoveObjectToPosition(){
+            if(_currentWaypoint.SpeedModifier != 0) Speed = _currentWaypoint.SpeedModifier;
+            yield return new WaitForSeconds(_currentWaypoint.Seconds);
 
             MoveObject(_currentWaypoint.Position);
         }

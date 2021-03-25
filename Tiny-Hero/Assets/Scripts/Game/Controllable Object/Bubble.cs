@@ -12,7 +12,6 @@ public class Bubble : Controllable
     [SerializeField] private float _timeForActivation = 1f;
 
     [Header("Desactivation")]
-    [SerializeField] private bool _desactivateBySeconds = false;
     [SerializeField] private float _seconds;
     private Rigidbody2D _rgb;
 
