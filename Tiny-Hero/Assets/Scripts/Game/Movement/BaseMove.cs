@@ -9,9 +9,15 @@ namespace Movement{
     {
         [Header("Move Attributes")]
         [SerializeField] private float _speed;
+        public float Speed{
+            get => _speed;
+            set => _speed = value;
+        }
         public UnityEvent OnReachTargetDestination;
 
         protected Transform EndPosition;
+
+        public void MoveObject(Transform target) => StartCoroutine(Move(target));
         private IEnumerator Move(Transform target){
             EndPosition = target;
 
@@ -19,11 +25,9 @@ namespace Movement{
 
             float time = _distance / _speed;
 
-            yield return transform.DOLocalMove(target.position, time).WaitForCompletion(true);
+            yield return transform.DOMove(target.position, time).WaitForCompletion(true);
 
             OnReachTargetDestination.Invoke();
         }
-
-        public void MoveObject(Transform target) => StartCoroutine(Move(target));
     }
 }
