@@ -7,6 +7,10 @@ public class PlayerAbilityHandler : MonoBehaviour
 {
     [SerializeField] private Dash _dash;
 
+    public Dash Dash{
+        get => _dash;
+    }
+
     private Player _player;
 
     private void Start() {

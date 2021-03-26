@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 
-namespace Movement{
+namespace Game.Movement{
     public class BaseMove : MonoBehaviour
     {
         [Header("Move Attributes")]
@@ -23,11 +23,19 @@ namespace Movement{
 
             float _distance = Vector2.Distance(transform.position, target.position);
 
-            float time = _distance / _speed;
+            float time = CalculateTime(_speed, _distance);
 
             yield return transform.DOMove(target.position, time).WaitForCompletion(true);
 
             OnReachTargetDestination.Invoke();
+        }
+
+        public float CalculateTime(float speed, float distance){
+            return distance / speed;
+        }
+
+        public float CalculateDistance(Transform point1, Transform point2){
+            return Vector2.Distance(point1.position, point2.position);
         }
     }
 }
