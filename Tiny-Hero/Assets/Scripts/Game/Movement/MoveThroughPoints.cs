@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Movement{
+namespace Game.Movement{
     public class MoveThroughPoints : BaseMove
     {
         [Header("Move Through Points")]
@@ -13,6 +13,7 @@ namespace Movement{
         [Header("Gizmos")]
         [SerializeField] private Color _gizmosColor = Color.green;
         [SerializeField, Range(0, 1)] private float _sphereSize = .3f;
+        [SerializeField] private bool _drawGizmos = true;
 
         private void Start() {
             OnReachTargetDestination.AddListener(SelectNextWaypoint);
@@ -21,6 +22,8 @@ namespace Movement{
         }
 
         private void SelectNextWaypoint(){
+            _currentWaypoint?.OnReachWaypoint.Invoke();
+            
             _currentWaypointIndex = (_currentWaypointIndex + 1) % _wayPoints.Count;
             _currentWaypoint = _wayPoints[_currentWaypointIndex];
             
@@ -35,11 +38,9 @@ namespace Movement{
         }
 
         private void OnDrawGizmos() {
-            if(_wayPoints == null)
+            if(_wayPoints == null || _wayPoints.Count < 2 || !_drawGizmos)
                 return;
-
-            if(_wayPoints.Count < 2)
-                return;
+                
 
             Gizmos.color = _gizmosColor;
 

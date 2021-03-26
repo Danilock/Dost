@@ -63,6 +63,7 @@ public class CharacterController2D : MonoBehaviour
 	[Header("Wall Check")]
 	[SerializeField] private LayerMask m_wallLayer;
 	[SerializeField] private Vector3 m_wallCheckSize, m_wallCheckOffset;
+	public UnityEvent OnGroundEvent;
 
 	private void Awake()
 	{
@@ -92,6 +93,7 @@ public class CharacterController2D : MonoBehaviour
 			if (Colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
+				OnGroundEvent.Invoke();
 				if (!wasGrounded)
 					OnLandEvent.Invoke();
 			}

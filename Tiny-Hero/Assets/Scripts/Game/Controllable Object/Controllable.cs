@@ -17,7 +17,7 @@ public class Controllable : MonoBehaviour
     protected Vector2 MoveDirection = new Vector2(1f, 0f);
     protected Player Player;
 
-    public Vector3 InitialPosition;
+    [HideInInspector] public Vector3 InitialPosition;
 
     public virtual void Start() {
         Player = FindObjectOfType<Player>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Game.Ability{
 public abstract class BaseAbility : MonoBehaviour
@@ -16,13 +17,14 @@ public abstract class BaseAbility : MonoBehaviour
             get => _canUse; 
             private set => _canUse = value; 
         }
-
+        [SerializeField] private UnityEvent _onUseAbility;
         public void TriggerAbility(){
             if(!_canUse)
                 return;
             
             Ability();
             StartCoroutine(HandleCooldown());
+            _onUseAbility.Invoke();
         }
 
         public abstract void Ability();
@@ -31,6 +33,11 @@ public abstract class BaseAbility : MonoBehaviour
             CanUse = false;
             yield return new WaitForSeconds(Cooldown);
             CanUse = true;
+        }
+
+        public void EnableAbility(){
+            CanUse = true;
+            StopCoroutine(HandleCooldown());
         }
     }
 }

@@ -49,14 +49,14 @@ namespace Game.Ability
 
         IEnumerator HandleCharacterController()
         {
-            float gravityBeforeDash = _rgb.gravityScale;
+            //float gravityBeforeDash = _rgb.gravityScale;
             
             _characterController.CanMove = false;
             _rgb.gravityScale = 0f;
 
             yield return new WaitForSeconds(.25f);
 
-            _rgb.gravityScale = gravityBeforeDash;
+            _rgb.gravityScale = 3f;
             _characterController.CanMove = true;
 
             _rgb.velocity = Vector2.zero;
