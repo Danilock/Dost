@@ -56,12 +56,12 @@ public class RoomManager : Singleton<RoomManager>, ISave
 
     public void Save()
     {
-        SaveData.Save(this, gameObject.name);
+        SaveData.Save(this, gameObject.GetInstanceID().ToString());
     }
 
     public void Load()
     {
-        var data = (RoomManager) SaveData.Load(this, gameObject.name);
+        var data = (RoomManager) SaveData.Load(this, gameObject.GetInstanceID().ToString());
 
         _roomsInScene = data._roomsInScene;
         _currentRoom = data._currentRoom;
