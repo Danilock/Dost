@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6217340953648039622}
   - component: {fileID: 6217340953648039616}
-  - component: {fileID: 6217340953648039617}
+  - component: {fileID: 7706561496407784234}
   m_Layer: 10
   m_Name: Room Changer Activator (1)
   m_TagString: Untagged
@@ -58,7 +58,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6217340953648039617
+--- !u!114 &7706561496407784234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,8 +71,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brother: {fileID: 6217340954063216146}
-  _from: {fileID: 0}
-  _to: {fileID: 0}
+  _to:
+    Camera: {fileID: 0}
 --- !u!1 &6217340954063216146
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +83,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6217340954063216159}
   - component: {fileID: 6217340954063216156}
-  - component: {fileID: 6217340954063216157}
+  - component: {fileID: 3909741781994044163}
   m_Layer: 10
   m_Name: Room Changer Activator
   m_TagString: Untagged
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6217340954063216157
+--- !u!114 &3909741781994044163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,8 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brother: {fileID: 6217340953648039623}
-  _from: {fileID: 0}
-  _to: {fileID: 0}
+  _to:
+    Camera: {fileID: 0}
 --- !u!1 &6217340955127020670
 GameObject:
   m_ObjectHideFlags: 0
