@@ -8,14 +8,17 @@ namespace Damageable{
     {
         [SerializeField, Range(0, 100f)] private int _life;
         [SerializeField] private DamageableTeam _team;
+
+        private bool _isDead = false;
         public UnityEvent OnDead;
         public void TakeDamage(int damage, DamageableTeam damageSourceTeam){
-            if(damageSourceTeam == _team)
+            if(damageSourceTeam == _team || _isDead)
                 return;
             
             _life -= damage;
 
             if(_life <= 0){
+                _isDead = true;
                 OnDead.Invoke();
             }
         }

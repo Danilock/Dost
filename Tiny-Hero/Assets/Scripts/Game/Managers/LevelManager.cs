@@ -2,16 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class LevelManager : Singleton<LevelManager>, ISave
 {
-    [SerializeField] private Transform _currentCheckPoint;
+    [SerializeField] public Vector3 _currentCheckPoint;
     [SerializeField] private Player _player;
-
-    public void SetCheckpoint(Transform checkpoint){
-        _currentCheckPoint = checkpoint;
-
-        Save();
-    }
     
     public override void Awake()
     {
@@ -21,27 +16,43 @@ public class LevelManager : Singleton<LevelManager>, ISave
             Instance = this;
         }
 
-        Load();
+    }
 
-        if(_player == null)
-            _player = FindObjectOfType<Player>();
+    private void OnEnable() {
+        Load();
     }
 
     private void Start() {
-        if(_currentCheckPoint == null)
+        if(_player == null)
+            _player = FindObjectOfType<Player>();
+
+        _player.PlayerHealth.OnDead.AddListener(OnPlayerDead);
+
+        if(_currentCheckPoint == Vector3.zero)
             return;
-        _player.transform.position = _currentCheckPoint.transform.position;
+        _player.transform.position = _currentCheckPoint;
+    }
+    public void SetCheckpoint(RoomChanger checkpoint){
+        _currentCheckPoint = checkpoint.transform.position;
+
+        Save();
     }
 
     public void Load()
     {
-        var data = (LevelManager) SaveData.Load(this, gameObject.GetInstanceID().ToString());
+        var data = (LevelManager) SaveData.Load(this, gameObject.name);
+
+        Debug.Log(
+            JsonUtility.ToJson(data, true)
+        );
 
         _currentCheckPoint = data._currentCheckPoint;
     }
 
     public void Save()
     {
-        SaveData.Save(this, gameObject.GetInstanceID().ToString());
+        SaveData.Save(this, gameObject.name);
     }
+
+    private void OnPlayerDead() => GameManager.RestartScene();
 }

@@ -18,10 +18,13 @@ public class Player : MonoBehaviour
 
     public PlayerInputHandler InputHandler { get; private set; }
 
+    public Damageable.Damageable PlayerHealth { get; private set;}
+
     public Collider2D Collider;
     
     private void Awake() {
         StateMachine = new StateMachine<Player>(this);
+        PlayerHealth = GetComponent<Damageable.Damageable>();
     }
 
     private void Start() {

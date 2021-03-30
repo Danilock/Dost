@@ -10,8 +10,6 @@ public class SaveData
 
         PlayerPrefs.SetString(keySave, data);
         PlayerPrefs.Save();
-
-        Debug.Log(data);
     }
 
     public static object Load(object obj, string key){

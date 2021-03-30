@@ -19,7 +19,7 @@ public class RoomChanger : MonoBehaviour
         _brother.SetActive(true);
 
         RoomManager.Instance.SetRoom(_to);
-        LevelManager.Instance.SetCheckpoint(transform);
+        LevelManager.Instance.SetCheckpoint(this);
 
         gameObject.SetActive(false);
     }
