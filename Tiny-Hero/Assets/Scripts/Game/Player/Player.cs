@@ -21,10 +21,13 @@ public class Player : MonoBehaviour
     public Damageable.Damageable PlayerHealth { get; private set;}
 
     public Collider2D Collider;
+
+    public PlayerAnimationHandler AnimationHandler { get; private set; }
     
     private void Awake() {
         StateMachine = new StateMachine<Player>(this);
         PlayerHealth = GetComponent<Damageable.Damageable>();
+        AnimationHandler = GetComponent<PlayerAnimationHandler>();
     }
 
     private void Start() {

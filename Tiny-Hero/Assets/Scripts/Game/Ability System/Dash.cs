@@ -75,8 +75,8 @@ namespace Game.Ability
             {
                 GameObject fadeObj = new GameObject("Fade");
 
-                fadeObj.transform.position = transform.position;
-                fadeObj.transform.localScale = transform.localScale;
+                fadeObj.transform.position = _abilityOwner.transform.position;
+                fadeObj.transform.localScale = _abilityOwner.transform.localScale;
 
                 SpriteRenderer fadeSprite = fadeObj.AddComponent<SpriteRenderer>();
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomManager : Singleton<RoomManager>, ISave
 {
@@ -56,12 +57,14 @@ public class RoomManager : Singleton<RoomManager>, ISave
 
     public void Save()
     {
-        SaveData.Save(this, gameObject.GetInstanceID().ToString());
+        SaveData.Save(this, 
+        SceneManager.GetActiveScene().name + "/" + gameObject.name);
     }
 
     public void Load()
     {
-        var data = (RoomManager) SaveData.Load(this, gameObject.GetInstanceID().ToString());
+        var data = (RoomManager) SaveData.Load(this, 
+        SceneManager.GetActiveScene().name + "/" + gameObject.name);
 
         _roomsInScene = data._roomsInScene;
         _currentRoom = data._currentRoom;

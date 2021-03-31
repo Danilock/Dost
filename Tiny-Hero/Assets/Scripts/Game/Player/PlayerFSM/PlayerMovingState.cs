@@ -7,7 +7,7 @@ public class PlayerMovingState : State<Player>
 {
     public override void EnterState(Player entity)
     {
-        
+        entity.AnimationHandler.TriggerWalkAnimation();
     }
 
     public override void ExitState(Player entity)

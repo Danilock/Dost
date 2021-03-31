@@ -8,6 +8,7 @@ public class PlayerJumpState : State<Player>
     private bool _canDoubleJump = true; 
     public override void EnterState(Player entity)
     {
+        entity.AnimationHandler.TriggerJumpAnimation();
         _canDoubleJump = true;
     }
 

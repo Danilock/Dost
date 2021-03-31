@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public InGameState InGameState = new InGameState();
     public InPauseState InPauseState = new InPauseState();
     public InLoadingState InLoadingState = new InLoadingState();
+    public InMenuState InMenuState = new InMenuState();
     #endregion
     public PlayerInput Input;
     public override void Awake()
@@ -59,6 +60,17 @@ public class GameManager : Singleton<GameManager>
             Instance.LoadSceneAsync(
                 SceneManager.GetActiveScene().name
             )
+        );
+    }
+
+    public static void LoadScene(string sceneName)
+    {
+        GameManager.Instance.StateMachine.SetState(
+            GameManager.Instance.InLoadingState
+        );
+
+        GameManager.Instance.StartCoroutine(
+            Instance.LoadSceneAsync(sceneName)
         );
     }
 

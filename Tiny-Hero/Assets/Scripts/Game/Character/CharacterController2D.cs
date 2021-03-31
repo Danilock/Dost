@@ -220,7 +220,12 @@ public class CharacterController2D : MonoBehaviour
 	///Totally grounded means the player is in the floor and with zero velocity in y axis
 	///</Summary> 
 	public bool IsTotallyGrounded(){
-		return m_Grounded && Mathf.Abs(Rigidbody.velocity.y) < .1f;
+		if (m_Grounded && Mathf.Abs(Rigidbody.velocity.y) < .1f)
+			return true;
+		else if (m_Grounded && Mathf.Abs(Rigidbody.velocity.y) > .1f)
+			return true;
+
+		return false;
 	}
 	#endregion
 
