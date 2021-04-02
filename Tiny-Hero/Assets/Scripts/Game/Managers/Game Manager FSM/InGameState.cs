@@ -17,7 +17,7 @@ public class InGameState : State<GameManager>
 
     public override void TickState(GameManager entity)
     {
-        if(entity.Input.InputActions.Player.Pause.triggered){
+        if(entity.Input.Player.Pause.triggered){
             entity.StateMachine.SetState(entity.InPauseState);
         }
     }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.StateMachine;
+using UnityEngine.SceneManagement;
+using UI;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -9,8 +12,10 @@ public class GameManager : Singleton<GameManager>
     public StateMachine<GameManager> StateMachine;
     public InGameState InGameState = new InGameState();
     public InPauseState InPauseState = new InPauseState();
+    public InLoadingState InLoadingState = new InLoadingState();
+    public InMenuState InMenuState = new InMenuState();
     #endregion
-    public PlayerInputHandler Input;
+    public PlayerInput Input;
     public override void Awake()
     {
         if(Instance != null && Instance != this){
@@ -21,7 +26,7 @@ public class GameManager : Singleton<GameManager>
             DontDestroyOnLoad(this.gameObject);
         }
 
-        Input = FindObjectOfType<PlayerInputHandler>();
+        Input = new PlayerInput();
         StateMachine = new StateMachine<GameManager>(this);
     }
 
@@ -34,14 +39,55 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void EnablePlayerActions(){
-        Input.InputActions.Player.Dash.Enable();
-        Input.InputActions.Player.Move.Enable();
-        Input.InputActions.Player.Jump.Enable();
+        Input.Player.Dash.Enable();
+        Input.Player.Move.Enable();
+        Input.Player.Jump.Enable();
     }
 
     public void DisablePlayerActions(){
-        Input.InputActions.Player.Move.Disable();
-        Input.InputActions.Player.Jump.Disable();
-        Input.InputActions.Player.Dash.Disable();
+        Input.Player.Move.Disable();
+        Input.Player.Jump.Disable();
+        Input.Player.Dash.Disable();
     }
+
+    #region Level Restart
+    public static void RestartScene(){
+        GameManager.Instance.StateMachine.SetState(
+            GameManager.Instance.InLoadingState
+        );
+
+        GameManager.Instance.StartCoroutine(
+            Instance.LoadSceneAsync(
+                SceneManager.GetActiveScene().name
+            )
+        );
+    }
+
+    public static void LoadScene(string sceneName)
+    {
+        GameManager.Instance.StateMachine.SetState(
+            GameManager.Instance.InLoadingState
+        );
+
+        GameManager.Instance.StartCoroutine(
+            Instance.LoadSceneAsync(sceneName)
+        );
+    }
+
+    private IEnumerator LoadSceneAsync(string sceneName){
+        Fade.ShowFade();
+
+        yield return new WaitForSeconds(1f);
+        
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        Fade.HideFade();
+    }
+    #endregion
 }

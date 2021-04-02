@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MenuController : MonoBehaviour
+{
+    void Start()
+    {
+        GameManager.Instance.StateMachine.SetState(GameManager.Instance.InMenuState);   
+    }
+}

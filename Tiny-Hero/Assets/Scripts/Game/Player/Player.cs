@@ -18,10 +18,16 @@ public class Player : MonoBehaviour
 
     public PlayerInputHandler InputHandler { get; private set; }
 
+    public Damageable.Damageable PlayerHealth { get; private set;}
+
     public Collider2D Collider;
+
+    public PlayerAnimationHandler AnimationHandler { get; private set; }
     
     private void Awake() {
         StateMachine = new StateMachine<Player>(this);
+        PlayerHealth = GetComponent<Damageable.Damageable>();
+        AnimationHandler = GetComponent<PlayerAnimationHandler>();
     }
 
     private void Start() {
@@ -34,6 +40,8 @@ public class Player : MonoBehaviour
 
     private void Update() {
         StateMachine.CurrentState.TickState(this);
+
+        Debug.Log(StateMachine.CurrentState);
     }
 
     private void FixedUpdate() {

@@ -8,7 +8,7 @@ public class SaveData
     public static void Save(object type, string keySave){
         var data = JsonUtility.ToJson(type, true);
 
-        PlayerPrefs.SetString(SceneManager.GetActiveScene().name + "/" + keySave, data);
+        PlayerPrefs.SetString(keySave, data);
         PlayerPrefs.Save();
     }
 
@@ -16,7 +16,7 @@ public class SaveData
         var instance = obj;
 
         JsonUtility.FromJsonOverwrite(
-            PlayerPrefs.GetString(SceneManager.GetActiveScene().name + "/" + key),
+            PlayerPrefs.GetString(key),
             obj
         );
 

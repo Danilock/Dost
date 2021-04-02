@@ -7,7 +7,7 @@ public class PlayerIdleState : State<Player>
 {
     public override void EnterState(Player entity)
     {
-        
+        entity.AnimationHandler.TriggerIdleAnimation();
     }
 
     public override void TickState(Player entity)
