@@ -6,7 +6,7 @@ public class PlayerAnimationHandler : MonoBehaviour
 {
     private Animator _playerAnimator;
 
-    private void Start()
+    private void Awake()
     {
         _playerAnimator = GetComponent<Animator>();
     }
