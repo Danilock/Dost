@@ -40,8 +40,6 @@ public class Player : MonoBehaviour
 
     private void Update() {
         StateMachine.CurrentState.TickState(this);
-
-        Debug.Log(StateMachine.CurrentState);
     }
 
     private void FixedUpdate() {

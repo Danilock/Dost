@@ -47,7 +47,7 @@ namespace Game.Ability
             return direction;
         }
 
-        IEnumerator HandleCharacterController()
+        public IEnumerator HandleCharacterController()
         {
             //float gravityBeforeDash = _rgb.gravityScale;
             
@@ -58,8 +58,6 @@ namespace Game.Ability
 
             _rgb.gravityScale = 3f;
             _characterController.CanMove = true;
-
-            _rgb.velocity = Vector2.zero;
         }
 
         /// <summary>
