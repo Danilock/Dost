@@ -30,5 +30,8 @@ public class PlayerMovingState : State<Player>
         else if(entity.InputHandler.Move.magnitude < .1f){
             entity.StateMachine.SetState(entity.IdleState);
         }
+        else if(!entity.CharacterController.IsTotallyGrounded()){
+            entity.StateMachine.SetState(entity.JumpState);
+        }
     }
 }

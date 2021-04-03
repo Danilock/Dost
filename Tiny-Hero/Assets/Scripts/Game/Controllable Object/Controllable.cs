@@ -43,6 +43,8 @@ public class Controllable : MonoBehaviour
     }
 
     protected void AttachPlayer(bool playerIsKinematic){
+        Player.transform.localScale = SetScale(new Vector3(.8f, .8f, .8f));
+
         Player.transform.SetParent(this.gameObject.transform);
         Player.transform.localPosition = Vector3.zero;
 
@@ -58,6 +60,10 @@ public class Controllable : MonoBehaviour
     protected void UnattachPlayer(bool playerIsKinematic){
         Player.transform.SetParent(null);
 
+        Player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
         if(MakePlayerNPC)
             Player.StateMachine.SetState(Player.JumpState);
         
@@ -65,11 +71,15 @@ public class Controllable : MonoBehaviour
             Player.Collider.isTrigger = false;
 
         ChangeRigidbodyProperties(false);
+
+        Player.transform.localScale = SetScale(new Vector3(1f, 1f, 1f));
     }
 
     private void ChangeRigidbodyProperties(bool kinematic){
         Player.CharacterController.Rigidbody.isKinematic = kinematic;
         Player.CharacterController.Rigidbody.velocity = Vector2.zero;
     }
+
+    private Vector3 SetScale(Vector3 target) => target;
 
 }

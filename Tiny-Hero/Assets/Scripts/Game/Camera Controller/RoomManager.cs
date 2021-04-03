@@ -7,21 +7,13 @@ public class RoomManager : Singleton<RoomManager>, ISave
 {
     [SerializeField] private List<RoomChanger> _roomsInScene;
     [SerializeField] private Room _currentRoom;
-    
-    private void OnDisable() {
-        Save();
-    }
-
-    private void OnEnable() {
-        Load();
-    }
 
     private void Start() {
         SetRoom(_currentRoom);
     }
 
     public void SetRoom(Room _newRoom){
-        _currentRoom.Camera.gameObject.SetActive(false);
+        _currentRoom?.Camera.gameObject.SetActive(false);
 
         _currentRoom = _newRoom;
 
@@ -45,6 +37,7 @@ public class RoomManager : Singleton<RoomManager>, ISave
         }
 
         InitializeRooms();
+        Load();
     }
 
     private void InitializeRooms(){
@@ -63,8 +56,13 @@ public class RoomManager : Singleton<RoomManager>, ISave
 
     public void Load()
     {
-        var data = (RoomManager) SaveData.Load(this, 
-        SceneManager.GetActiveScene().name + "/" + gameObject.name);
+        string keyName = SceneManager.GetActiveScene().name + "/" + gameObject.name;
+
+        if(!PlayerPrefs.HasKey(keyName)){
+            SetRoom(_currentRoom);
+        }
+        
+        var data = (RoomManager) SaveData.Load(this, keyName);
 
         _roomsInScene = data._roomsInScene;
         _currentRoom = data._currentRoom;

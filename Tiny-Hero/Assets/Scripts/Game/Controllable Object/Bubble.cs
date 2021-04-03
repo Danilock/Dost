@@ -28,6 +28,12 @@ public class Bubble : Controllable
         if(!IsBeingUsed)
             return;
         MoveDirection = Player.InputHandler.InputActions.ControlledObject.Move.ReadValue<Vector2>();
+
+        float angle = Mathf.Atan2(MoveDirection.x, MoveDirection.y) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, -angle), .3f);
+
+        Player.transform.Rotate(0f, 0f, 700f * Time.deltaTime);
    
         if(Player.InputHandler.InputActions.ControlledObject.Exit.triggered){
             DesactivateBubble();
