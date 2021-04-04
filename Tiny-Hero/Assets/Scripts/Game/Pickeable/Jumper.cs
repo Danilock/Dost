@@ -18,17 +18,16 @@ public class Jumper : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Player")){
-            StartCoroutine(HandlePlayerInput(other));
-            
             Rigidbody2D rgb = other.gameObject.GetComponent<Rigidbody2D>();
 
             rgb.velocity = Vector2.zero;
             rgb.AddForce(_force, _forcemode);
-
+            
+            StartCoroutine(HandlePlayerInput(other, rgb));
         }
     }
 
-    private IEnumerator HandlePlayerInput(Collision2D player){
+    private IEnumerator HandlePlayerInput(Collision2D player, Rigidbody2D rgb){
         Player playerInstance = player.gameObject.GetComponent<Player>();
 
         playerInstance.CharacterController.CanMove = false;
