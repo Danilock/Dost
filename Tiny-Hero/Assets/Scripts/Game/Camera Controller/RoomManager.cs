@@ -6,10 +6,17 @@ using UnityEngine.SceneManagement;
 public class RoomManager : Singleton<RoomManager>, ISave
 {
     [SerializeField] private List<RoomChanger> _roomsInScene;
+    [SerializeField] private Room _initialRoom;
     [SerializeField] private Room _currentRoom;
 
     private void Start() {
-        SetRoom(_currentRoom);
+        LevelManager.Instance.OnLevelComplete += RestartRoom;
+        
+        SetRoom(_initialRoom);
+    }
+
+    private void OnDisable() {
+        LevelManager.Instance.OnLevelComplete -= RestartRoom;
     }
 
     public void SetRoom(Room _newRoom){
@@ -58,12 +65,19 @@ public class RoomManager : Singleton<RoomManager>, ISave
         string keyName = gameObject.name;
 
         if(!PlayerPrefs.HasKey(keyName)){
-            SetRoom(_currentRoom);
+            SetRoom(_initialRoom);
         }
         
         var data = (RoomManager) SaveData.Load(this, keyName);
 
         _roomsInScene = data._roomsInScene;
         _currentRoom = data._currentRoom;
+    }
+
+    //Restarts the manager.(Should be called when the level is completed)
+    public void RestartRoom(){
+        _currentRoom = _initialRoom;
+
+        Save();
     }
 }

@@ -9,7 +9,7 @@ public class TimelineController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(LevelManager.Instance.IsFirstTimeInLevel){
+        if(LevelManager.Instance.IsInitializingLevel){
             _director.Play();
         }
     }
