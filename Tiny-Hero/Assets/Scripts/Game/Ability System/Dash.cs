@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 namespace Game.Ability
 {
@@ -11,21 +12,29 @@ namespace Game.Ability
         [SerializeField, Tooltip("Shadows that will appear when dashing")] Sprite[] _shadow;
         [SerializeField] float _shadowTransparency = .5f;
         [SerializeField] private GameObject _abilityOwner;
+        [SerializeField] private RippleEffect _rippleEffect;
 
         private Rigidbody2D _rgb;
         private CharacterController2D _characterController;
 
         private Player _player;
 
+        private CinemachineImpulseSource _impulseSource;
+
         private void Awake()
         {
             _rgb = _abilityOwner.GetComponent<Rigidbody2D>();
             _characterController = _abilityOwner.GetComponent<CharacterController2D>();
             _player = _abilityOwner.GetComponent<Player>();
+            _impulseSource = GetComponent<CinemachineImpulseSource>();
         }
 
         public override void Ability()
         {
+            //Generates Cinemachine Impulse
+            _impulseSource.GenerateImpulse();
+
+            //Stops the player, to avoid large pushes
             _rgb.velocity = Vector2.zero;
 
             _rgb.AddForce(new Vector2(CalculateCharacterDirection().x * _force,
@@ -33,7 +42,14 @@ namespace Game.Ability
                             ) / 100, ForceMode2D.Impulse);
 
             StartCoroutine(HandleCharacterController());
+
+            #region Effects
+            //Do Fade Effect
             StartCoroutine(FadeEffect());
+
+            //Starts Ripple Effect
+            _rippleEffect.Emit();
+            #endregion
         }
 
         private Vector2 CalculateCharacterDirection()
