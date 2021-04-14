@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SaveData
 {
+    private static string SceneName{
+        get{
+            return SceneManager.GetActiveScene().name;
+        }
+    }
     public static void Save(object type, string keySave){
         var data = JsonUtility.ToJson(type, true);
 
-        PlayerPrefs.SetString(keySave, data);
+        PlayerPrefs.SetString(SceneName + "/" + keySave, data);
         PlayerPrefs.Save();
     }
 
@@ -16,7 +21,7 @@ public class SaveData
         var instance = obj;
 
         JsonUtility.FromJsonOverwrite(
-            PlayerPrefs.GetString(key),
+            PlayerPrefs.GetString(SceneName + "/" + key),
             obj
         );
 

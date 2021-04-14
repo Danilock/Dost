@@ -50,13 +50,12 @@ public class RoomManager : Singleton<RoomManager>, ISave
 
     public void Save()
     {
-        SaveData.Save(this, 
-        SceneManager.GetActiveScene().name + "/" + gameObject.name);
+        SaveData.Save(this, gameObject.name);
     }
 
     public void Load()
     {
-        string keyName = SceneManager.GetActiveScene().name + "/" + gameObject.name;
+        string keyName = gameObject.name;
 
         if(!PlayerPrefs.HasKey(keyName)){
             SetRoom(_currentRoom);

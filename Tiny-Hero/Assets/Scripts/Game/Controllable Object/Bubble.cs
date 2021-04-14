@@ -10,6 +10,7 @@ public class Bubble : Controllable
     [SerializeField] private ForceMode2D _forceMode;
     [Header("Activation")]
     [SerializeField] private float _timeForActivation = 1f;
+    [SerializeField] private CinemachineImpulseSource _impulse;
 
     [Header("Desactivation")]
     [SerializeField] private float _seconds;
@@ -103,6 +104,7 @@ public class Bubble : Controllable
         _collider.isTrigger = false;
         yield return new WaitForSeconds(_timeForActivation);
         IsBeingUsed = true;
+        _impulse?.GenerateImpulse();
 
         yield return new WaitForSeconds(_seconds);
         DesactivateBubble();
