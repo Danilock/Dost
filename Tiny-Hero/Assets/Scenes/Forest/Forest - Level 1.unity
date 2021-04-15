@@ -46371,6 +46371,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _roomsInScene: []
+  _initialRoom:
+    Camera: {fileID: 166029774}
   _currentRoom:
     Camera: {fileID: 166029774}
 --- !u!1 &439237837
@@ -65462,6 +65464,7 @@ MonoBehaviour:
   _currentCheckPoint: {x: 0, y: 0, z: 0}
   _player: {fileID: 0}
   _levelName: Forest - Level 1
+  IsInitializingLevel: 1
 --- !u!4 &1853144039
 Transform:
   m_ObjectHideFlags: 0

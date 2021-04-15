@@ -10,7 +10,18 @@ public class LevelManager : Singleton<LevelManager>, ISave
     
     [SerializeField] private string _levelName;
 
-    public bool IsFirstTimeInLevel = true;
+    #region LevelCompletion
+    public delegate void onLevelComplete();
+    public event onLevelComplete OnLevelComplete;
+    private bool _levelCompleted;
+    public bool LevelCompleted{
+        get => _levelCompleted;
+        private set => _levelCompleted = value;
+    }
+
+    #endregion
+
+    public bool IsInitializingLevel = true;
 
     public override void Awake()
     {
@@ -39,23 +50,34 @@ public class LevelManager : Singleton<LevelManager>, ISave
     public void SetCheckpoint(RoomChanger checkpoint){
         _currentCheckPoint = checkpoint.transform.position;
 
-        IsFirstTimeInLevel = false;
+        IsInitializingLevel = false;
 
         Save();
     }
 
     public void Load()
     {
-        var data = (LevelManager) SaveData.Load(this, _levelName);
+        var data = (LevelManager) SaveData.Load(this, _levelName, true);
 
         _currentCheckPoint = data._currentCheckPoint;
-        IsFirstTimeInLevel = data.IsFirstTimeInLevel;
+        IsInitializingLevel = data.IsInitializingLevel;
     }
 
     public void Save()
     {
-        SaveData.Save(this, _levelName);
+        SaveData.Save(this, _levelName, true);
     }
 
     private void OnPlayerDead() => GameManager.RestartScene();
+
+    public void SetLevelComplete(){
+        LevelCompleted = true;
+
+        IsInitializingLevel = true;
+
+        if(OnLevelComplete != null)
+            OnLevelComplete.Invoke();
+
+        Save();
+    }
 }
