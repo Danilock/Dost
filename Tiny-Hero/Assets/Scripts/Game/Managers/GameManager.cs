@@ -16,6 +16,14 @@ public class GameManager : Singleton<GameManager>
     public InMenuState InMenuState = new InMenuState();
     #endregion
     public PlayerInput Input;
+
+    public enum InitialState{
+        InGame,
+        InMenu,
+        InPause
+    }
+
+    [SerializeField] private InitialState _initialState;
     public override void Awake()
     {
         if(Instance != null && Instance != this){
@@ -28,10 +36,6 @@ public class GameManager : Singleton<GameManager>
 
         Input = new PlayerInput();
         StateMachine = new StateMachine<GameManager>(this);
-    }
-
-    private void Start() {
-        StateMachine.SetState(InGameState);
     }
 
     private void Update() {
@@ -87,7 +91,35 @@ public class GameManager : Singleton<GameManager>
             yield return null;
         }
 
+        yield return new WaitForSeconds(.5f);
+
         Fade.HideFade();
     }
     #endregion
+
+    #region 
+    public void SetLastLevel(string levelName){
+        PlayerPrefs.SetString("LastLevel", levelName);
+        PlayerPrefs.Save();
+    }
+
+    public bool IsGameSaved{
+        get => PlayerPrefs.HasKey("LastLevel");
+    }
+
+    public string GetLastLevelName{
+        get => PlayerPrefs.GetString("LastLevel");
+    }
+    #endregion
+
+    public void SetManagerState(InitialState state){
+        switch(state){
+            case InitialState.InGame:
+                StateMachine.SetState(InGameState);
+                break;
+            case InitialState.InMenu:
+                StateMachine.SetState(InMenuState);
+                break;
+        }
+    }
 }

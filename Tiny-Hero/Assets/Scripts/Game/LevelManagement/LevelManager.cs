@@ -38,6 +38,8 @@ public class LevelManager : Singleton<LevelManager>, ISave
     }
 
     private void Start() {
+        GameManager.Instance.SetLastLevel(_levelName);
+
         if(_player == null)
             _player = FindObjectOfType<Player>();
 
