@@ -14,7 +14,6 @@ namespace UI{
                 Destroy(this.gameObject);
             else{
                 Instance = this;
-                DontDestroyOnLoad(this.gameObject);
             }
         }
 
@@ -23,16 +22,14 @@ namespace UI{
         }
 
         public static void ShowFade(){
-            Instance._fadeImage.transform.DOScale(
-                new Vector3(2f, 2f, 2f),
-                .8f
+            Instance._fadeImage.DOColor(
+                Color.black, .8f
             );
         }
 
         public static void HideFade(){
-            Instance._fadeImage.transform.DOScale(
-                new Vector3(0f, 0f, 0f),
-                .8f
+            Instance._fadeImage.DOColor(
+                Color.black * 0f, .8f
             );
         }
     }
