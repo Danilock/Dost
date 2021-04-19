@@ -106,6 +106,10 @@ public class GameManager : Singleton<GameManager>
     public bool IsGameSaved{
         get => PlayerPrefs.HasKey("LastLevel");
     }
+
+    public string GetLastLevelName{
+        get => PlayerPrefs.GetString("LastLevel");
+    }
     #endregion
 
     public void SetManagerState(InitialState state){

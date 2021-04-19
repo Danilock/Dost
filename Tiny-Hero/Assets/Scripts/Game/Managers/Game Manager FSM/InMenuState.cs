@@ -11,6 +11,6 @@ public class InMenuState : State<GameManager>
 
     public override void ExitState(GameManager entity)
     {
-        entity.StateMachine.SetState(entity.InLoadingState);
+        
     }
 }
