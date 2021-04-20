@@ -123,6 +123,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &12921316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 12921318}
+  - component: {fileID: 12921317}
+  m_Layer: 0
+  m_Name: Animator Speed Changer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &12921317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12921316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a164ec1630061a94ea5eb5ffc0fab064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatorData:
+  - Animator: {fileID: 2100849941}
+    Speed: 0.5
+  - Animator: {fileID: 1787157636}
+    Speed: 0.5
+  - Animator: {fileID: 1685836811}
+    Speed: 0.5
+--- !u!4 &12921318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12921316}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 187.21811, y: 547.90826, z: -2912.1816}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &68984332
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +344,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -701.03955, y: 0}
+  m_AnchoredPosition: {x: -701.0397, y: 0}
   m_SizeDelta: {x: -1402.0792, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &84515799
@@ -2817,7 +2867,7 @@ Tilemap:
   - m_RefCount: 168
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
-  m_AnimationFrameRate: 30
+  m_AnimationFrameRate: 15
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -29, y: -15, z: 0}
   m_Size: {x: 49, y: 25, z: 1}
@@ -3879,7 +3929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -979831716109592834, guid: 1f5b1166cabd1a7488dd25c077231bbf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ded263980ecbcb48aea50943eb44327, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5964,7 +6014,7 @@ Tilemap:
   - m_RefCount: 180
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
-  m_AnimationFrameRate: 30
+  m_AnimationFrameRate: 15
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -29, y: -11, z: 0}
   m_Size: {x: 47, y: 22, z: 1}
@@ -6382,7 +6432,7 @@ Tilemap:
   - m_RefCount: 7
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
-  m_AnimationFrameRate: 30
+  m_AnimationFrameRate: 15
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -16, y: -14, z: 0}
   m_Size: {x: 31, y: 27, z: 1}
@@ -10693,7 +10743,7 @@ Tilemap:
   - m_RefCount: 90
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
-  m_AnimationFrameRate: 30
+  m_AnimationFrameRate: 15
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: -9, z: 0}
   m_Size: {x: 23, y: 20, z: 1}
@@ -11050,6 +11100,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1213576034030892121, guid: 10c06d4cc56dabf4a93a9dc8db9fb232, type: 3}
   m_PrefabInstance: {fileID: 208061177}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1685836811 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1213576034030892122, guid: 10c06d4cc56dabf4a93a9dc8db9fb232, type: 3}
+  m_PrefabInstance: {fileID: 208061177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1725226949
 GameObject:
   m_ObjectHideFlags: 0
@@ -11122,7 +11177,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749767485
 GameObject:
@@ -11258,6 +11313,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749767485}
   m_CullTransparentMesh: 1
+--- !u!95 &1787157636 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1213576034030892122, guid: 10c06d4cc56dabf4a93a9dc8db9fb232, type: 3}
+  m_PrefabInstance: {fileID: 1976472765}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1914563210
 GameObject:
   m_ObjectHideFlags: 0
@@ -12539,7 +12599,7 @@ Tilemap:
   - m_RefCount: 82
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
-  m_AnimationFrameRate: 30
+  m_AnimationFrameRate: 15
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -3, y: 0, z: 0}
   m_Size: {x: 20, y: 9, z: 1}
@@ -12923,3 +12983,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2100849941 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1213576034030892122, guid: 10c06d4cc56dabf4a93a9dc8db9fb232, type: 3}
+  m_PrefabInstance: {fileID: 784539947}
+  m_PrefabAsset: {fileID: 0}
