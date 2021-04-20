@@ -2,26 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using DG.Tweening;
+using UnityEngine.UI;
 
 namespace UI{
     [RequireComponent(typeof(CanvasGroup))]
     public class UINavigation : MonoBehaviour, IPointerEnterHandler
     {
-        [SerializeField] private GameObject _selectionCursor;
-
-        private CanvasGroup _group;
+        private Selectable _selectable;
 
         private void Start() {
-            _group = GetComponent<CanvasGroup>();
+            _selectable = GetComponent<Selectable>();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if(!_group.interactable)
-                return;
-
-            _selectionCursor.transform.DOMove(transform.position, .3f);
+            UIManager.Instance.SetCursorSelectionPosition(_selectable);
         }
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Trap
   - Room Changer
   - Pickeable
+  - SelectionCursor
   layers:
   - Default
   - TransparentFX

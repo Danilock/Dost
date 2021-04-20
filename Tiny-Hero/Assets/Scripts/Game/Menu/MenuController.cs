@@ -6,7 +6,7 @@ using TMPro;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup _continueButton;
+    [SerializeField] private Button _continueButton;
     [SerializeField] private TMP_Text _continueText;
     void Start()
     {
