@@ -14,10 +14,15 @@ namespace Game.Movement{
             set => _speed = value;
         }
         public UnityEvent OnReachTargetDestination;
+        public UnityEvent OnStartMove;
 
         protected Transform EndPosition;
 
-        public void MoveObject(Transform target) => StartCoroutine(Move(target));
+        public void MoveObject(Transform target){
+            OnStartMove.Invoke();
+            
+            StartCoroutine(Move(target));
+        }
         private IEnumerator Move(Transform target){
             EndPosition = target;
 
