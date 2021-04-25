@@ -16,14 +16,6 @@ public class GameManager : Singleton<GameManager>
     public InMenuState InMenuState = new InMenuState();
     #endregion
     public PlayerInput Input;
-
-    public enum InitialState{
-        InGame,
-        InMenu,
-        InPause
-    }
-
-    [SerializeField] private InitialState _initialState;
     public override void Awake()
     {
         if(Instance != null && Instance != this){
@@ -40,6 +32,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Update() {
         StateMachine.CurrentState.TickState(this);
+
+        Debug.Log(StateMachine.CurrentState);
     }
 
     public void EnablePlayerActions(){
@@ -112,14 +106,20 @@ public class GameManager : Singleton<GameManager>
     }
     #endregion
 
-    public void SetManagerState(InitialState state){
+    public void SetManagerState(GameState state){
         switch(state){
-            case InitialState.InGame:
+            case GameState.InGame:
                 StateMachine.SetState(InGameState);
                 break;
-            case InitialState.InMenu:
+            case GameState.InMenu:
                 StateMachine.SetState(InMenuState);
                 break;
         }
     }
 }
+
+public enum GameState{
+        InGame,
+        InMenu,
+        InPause
+    }

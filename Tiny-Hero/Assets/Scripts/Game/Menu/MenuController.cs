@@ -10,8 +10,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] private TMP_Text _continueText;
     void Start()
     {
-        GameManager.Instance.StateMachine.SetState(GameManager.Instance.InMenuState);   
-    
         InitializeContinueButton();
     }
 
