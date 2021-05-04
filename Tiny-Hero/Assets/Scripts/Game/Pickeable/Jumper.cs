@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using DG.Tweening;
 
 public class Jumper : MonoBehaviour
 {
     [SerializeField] private Vector2 _force;
     [SerializeField] private ForceMode2D _forcemode;
 
-    [Header("Parent")]
-    [SerializeField] private GameObject _parent;
+    [Header("Cinemachine Impulse")]
+    [SerializeField] private CinemachineImpulseSource _cinemachineImpulse;
+    
+    [Header("Visuals")]
+    [SerializeField] private GameObject _visuals;
 
     private Collider2D _collider;
 
@@ -22,6 +27,11 @@ public class Jumper : MonoBehaviour
 
             rgb.velocity = Vector2.zero;
             rgb.AddForce(_force, _forcemode);
+
+            if(_visuals != null)
+                _visuals.transform.DOPunchScale(_visuals.transform.localScale * 1.5f, .5f, 10, 1);
+
+            _cinemachineImpulse.GenerateImpulse();
             
             StartCoroutine(HandlePlayerInput(other, rgb));
         }
